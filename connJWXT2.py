@@ -4,6 +4,7 @@ import urllib
 from BeautifulSoup import BeautifulSoup
 import re
 import os
+import platform
 # import subprocess
 
 login = 'http://www.cdjwc.com/jiaowu/Login.aspx'
@@ -46,4 +47,7 @@ with open('out.htm', 'w') as f:
 with open('connJWXT2.ini', 'w') as f:
 	f.write(username + '\n' + password)
 
-os.system('google-chrome out.htm')
+if platform.system() == 'Windows':
+	os.system('fopen out.htm')
+elif platform.system() == 'Linux':
+	os.system('out.htm')
