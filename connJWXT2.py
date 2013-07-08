@@ -48,6 +48,6 @@ with open('connJWXT2.ini', 'w') as f:
 	f.write(username + '\n' + password)
 
 if platform.system() == 'Windows':
-	os.system('fopen out.htm')
-elif platform.system() == 'Linux':
 	os.system('out.htm')
+elif platform.system() == 'Linux':
+	os.system('fopen out.htm')
