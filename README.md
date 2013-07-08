@@ -1,4 +1,4 @@
-auto-grates
+auto-grades
 ===========
 
-Get grates from CCU EduMangSys automatically by emulating user's action.
+Get grades from CCU EduMangSys automatically by emulating user's action.
