@@ -50,4 +50,4 @@ with open('connJWXT2.ini', 'w') as f:
 if platform.system() == 'Windows':
 	os.system('out.htm')
 elif platform.system() == 'Linux':
-	os.system('fopen out.htm')
+	os.system('gnome-open out.htm')
