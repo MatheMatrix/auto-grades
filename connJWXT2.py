@@ -38,6 +38,7 @@ def WriteUsers(num, data):
 			cf.read('connJWXT2.ini')
 			cf.set('General', 'users', num)
 			cf.set('Users', 'user'+str(num), data['user'+str(num)])
+			cf.set('Users', 'pass'+str(num), data['pass'+str(num)])
 			cf.write(f)
 	else:
 		with open('connJWXT2.ini', 'w') as f:
@@ -52,8 +53,8 @@ def WriteUsers(num, data):
 data = GetUsers()
 if len(data) == 0:
 	print('There are no users info saved, please input one users info: ')
-	username = raw_input('Input your student ID: \n')
-	password = raw_input('Input your Password: \n')
+	username = raw_input('Input student ID: \n')
+	password = raw_input('Input Password: \n')
 	data['users'] = 1
 	data['user1'] = username
 	data['pass1'] = password
@@ -62,9 +63,18 @@ else:
 	print('There are {0} users\'s info saved, choice one to inquire: '.format(int(data['users'])))
 	for i in range(1, int(data['users']) + 1):
 		print('{0}. {1}'.format(i, data['user' + str(i)]))
+	print('{0}. New user'.format(i + 1, ))
 	choice = raw_input('Input \'1\' or other numbers: ')
-	username = data['user' + str(choice)]
-	password = data['pass' + str(choice)]
+	if choice == str(i + 1):
+		username = raw_input('Input student ID: \n')
+		password = raw_input('Input Password: \n')
+		data['users'] = i + 1
+		data['user' + str(i + 1)] = username
+		data['pass' + str(i + 1)] = password
+		WriteUsers(i + 1, data)
+	else:
+		username = data['user' + str(choice)]
+		password = data['pass' + str(choice)]
 
 login = 'http://www.cdjwc.com/jiaowu/Login.aspx'
 jw = 'http://www.cdjwc.com/jiaowu/JWXS/Default.aspx'
@@ -99,7 +109,7 @@ print('Now save data...')
 with open('out.htm', 'w') as f:
 	f.write(c.read())
 if platform.system() == 'Windows':
-	os.system('out.htm')
 	print('Now open the page...')
+	os.system('out.htm')
 elif platform.system() == 'Linux':
 	os.system('gnome-open out.htm')
