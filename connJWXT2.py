@@ -54,7 +54,7 @@ def WelcomeText():
 	print('*'*40)
 	print('本助手目前功能只有一键自动查成绩（可自动解决教务管理系统当前登录人数过多的问题哦），更多功能请关注新版(新版将第一时间在我的博客更新 mathematrix.sinaapp.com)\n'.decode('utf-8').encode('gbk'))
 	print('目前已知bugs:'.decode('utf-8').encode('gbk'))
-	print('1. 有时会因为莫名无法查询到成绩（较小几率），大家在确保信息正确的情况下可尝试多运行几次'.decode('utf-8').encode('gbk'))
+	print('1. 有时会因为莫名无法查询到成绩，大家在确保信息正确的情况下可尝试多运行几次'.decode('utf-8').encode('gbk'))
 	print('2. 用户信息会明文保存在程序运行文件夹内的connJWXT2.ini内，尚拿不定主意究竟要加密保存还是明文保存 另外现在如果想修改已保存信息 可直接打开这个文件修改'.decode('utf-8').encode('gbk'))
 	print('本项目开源在github 项目主页: https://github.com/MatheMatrix/auto-grades'.decode('utf-8').encode('gbk'))
 	print('*'*70)
