@@ -61,7 +61,7 @@ if len(data) == 0:
 else:
 	print('There are {0} users\'s info saved, choice one to inquire: '.format(int(data['users'])))
 	for i in range(1, int(data['users']) + 1):
-		print '{0}.'.format(i), data['user' + str(i)]
+		print('{0}. {1}'.format(i, data['user' + str(i)]))
 	choice = raw_input('Input \'1\' or other numbers: ')
 	username = data['user' + str(choice)]
 	password = data['pass' + str(choice)]
@@ -92,14 +92,14 @@ cookies = urllib2.HTTPCookieProcessor()
 opener = urllib2.build_opener(cookies)
 urllib2.install_opener(opener)
 
+print('Now login...')
 login = urllib2.urlopen(login,urllib.urlencode(data))
 c = urllib2.urlopen(grates)
+print('Now save data...')
 with open('out.htm', 'w') as f:
 	f.write(c.read())
-with open('connJWXT2.ini', 'w') as f:
-	f.write(username + '\n' + password)
-
 if platform.system() == 'Windows':
 	os.system('out.htm')
+	print('Now open the page...')
 elif platform.system() == 'Linux':
 	os.system('gnome-open out.htm')
