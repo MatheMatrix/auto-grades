@@ -91,7 +91,9 @@ login = 'http://www.cdjwc.com/jiaowu/Login.aspx'
 jw = 'http://www.cdjwc.com/jiaowu/JWXS/Default.aspx'
 grates = 'http://www.cdjwc.com/jiaowu/JWXS/cjcx/jwxs_cjcx_like.aspx'
 
-content = urllib.urlopen(login).read()
+req = urllib.urlopen(login)
+content = req.read()
+req.close()
 
 soup = BeautifulSoup(content)
 viewstate	= str(soup.findAll(id = re.compile('__VIEWSTATE'))).split()[-2]
@@ -124,3 +126,7 @@ if platform.system() == 'Windows':
 	os.system('out.htm')
 elif platform.system() == 'Linux':
 	os.system('gnome-open out.htm')
+
+opener.close()
+login.close()
+c.close()
