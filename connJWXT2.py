@@ -52,22 +52,22 @@ def WriteUsers(num, data):
 
 data = GetUsers()
 if len(data) == 0:
-	print('There are no users info saved, please input one users info: ')
-	username = raw_input('Input student ID: \n')
-	password = raw_input('Input Password: \n')
+	print('本地暂无用户数据保存，请输入新数据: ')
+	username = raw_input('输入你的学号然后按下回车键: \n')
+	password = raw_input('输入你的教务处密码然后按下回车键: \n')
 	data['users'] = 1
 	data['user1'] = username
 	data['pass1'] = password
 	WriteUsers(1, data)
 else:
-	print('There are {0} users\'s info saved, choice one to inquire: '.format(int(data['users'])))
+	print('已有 {0} 个用户的数据，选择其中一个来查询（输入后按下回车键）: '.format(int(data['users'])))
 	for i in range(1, int(data['users']) + 1):
 		print('{0}. {1}'.format(i, data['user' + str(i)]))
-	print('{0}. New user'.format(i + 1, ))
-	choice = raw_input('Input \'1\' or other numbers: ')
+	print('{0}. 输入一份新的数据'.format(i + 1, ))
+	choice = raw_input('输入 \'1\' 或者别的数字（输入后按下回车键）: ')
 	if choice == str(i + 1):
-		username = raw_input('Input student ID: \n')
-		password = raw_input('Input Password: \n')
+		username = raw_input('输入你的学号然后按下回车键: \n')
+		password = raw_input('输入你的教务处密码然后按下回车键:  \n')
 		data['users'] = i + 1
 		data['user' + str(i + 1)] = username
 		data['pass' + str(i + 1)] = password
@@ -102,14 +102,14 @@ cookies = urllib2.HTTPCookieProcessor()
 opener = urllib2.build_opener(cookies)
 urllib2.install_opener(opener)
 
-print('Now login...')
+print('正在登录...'.decode('utf-8'))
 login = urllib2.urlopen(login,urllib.urlencode(data))
 c = urllib2.urlopen(grates)
-print('Now save data...')
+print('正在从教务处获得数据...')
 with open('out.htm', 'w') as f:
 	f.write(c.read())
 if platform.system() == 'Windows':
-	print('Now open the page...')
+	print('正在打开成绩查询页面...')
 	os.system('out.htm')
 elif platform.system() == 'Linux':
 	os.system('gnome-open out.htm')
