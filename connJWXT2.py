@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import urllib2
 import cookielib
 import urllib
@@ -5,18 +7,68 @@ from BeautifulSoup import BeautifulSoup
 import re
 import os
 import platform
+import ConfigParser
 # import subprocess
+
+def GetUsers():
+	'''Get usres info from connJWXT2.ini
+	if not exist, return {}
+	'''
+
+	cf = ConfigParser.ConfigParser()
+	if 'connJWXT2.ini' in os.listdir(os.getcwd()):
+		cf.read('connJWXT2.ini')
+	else:
+		return {}
+	secs = cf.sections()
+	general = dict(cf.items('General'))
+	users = dict(cf.items('Users'))
+	general.update(users)
+	return general
+
+def WriteUsers(num, data):
+	'''Write user's information to connJWXT2.ini
+	asume:
+	num likes: 3
+	data likes: {'user3':'012345678', 'pass3':'impassword'}
+	'''
+	cf = ConfigParser.ConfigParser()
+	if 'connJWXT2.ini' in os.listdir(os.getcwd()):
+		with open('connJWXT2.ini', 'r+') as f:
+			cf.read('connJWXT2.ini')
+			cf.set('General', 'users', num)
+			cf.set('Users', 'user'+str(num), data['user'+str(num)])
+			cf.write(f)
+	else:
+		with open('connJWXT2.ini', 'w') as f:
+			cf.read('connJWXT2.ini')
+			cf.add_section('General')
+			cf.set('General', 'users', num)
+			cf.add_section('Users')
+			cf.set('Users', 'user'+str(num), data['user'+str(num)])
+			cf.set('Users', 'pass'+str(num), data['pass'+str(num)])
+			cf.write(f)
+
+data = GetUsers()
+if len(data) == 0:
+	print('There are no users info saved, please input one users info: ')
+	username = raw_input('Input your student ID: \n')
+	password = raw_input('Input your Password: \n')
+	data['users'] = 1
+	data['user1'] = username
+	data['pass1'] = password
+	WriteUsers(1, data)
+else:
+	print('There are {0} users\'s info saved, choice one to inquire: '.format(int(data['users'])))
+	for i in range(1, int(data['users']) + 1):
+		print '{0}.'.format(i), data['user' + str(i)]
+	choice = raw_input('Input \'1\' or other numbers: ')
+	username = data['user' + str(choice)]
+	password = data['pass' + str(choice)]
 
 login = 'http://www.cdjwc.com/jiaowu/Login.aspx'
 jw = 'http://www.cdjwc.com/jiaowu/JWXS/Default.aspx'
 grates = 'http://www.cdjwc.com/jiaowu/JWXS/cjcx/jwxs_cjcx_like.aspx'
-
-if 'connJWXT2.ini' in os.listdir(os.getcwd()):
-	with open('connJWXT2.ini', 'r') as f:
-		username, password = f.read().split('\n')
-else:
-	username = raw_input('Input your ID: \n')
-	password = raw_input('Input your Password: \n')
 
 content = urllib.urlopen(login).read()
 
