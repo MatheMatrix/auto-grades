@@ -101,13 +101,9 @@ viewstatgen = str(soup.findAll(id = re.compile('__VIEWSTATEGENERATOR'))).split()
 eventvali = str(soup.findAll(id = re.compile('__EVENTVALIDATION'))).split()[-2]
 cmdok = str(soup.findAll(id = re.compile('cmdok')))
 
-print viewstate, viewstatgen, eventvali
-
 viewstate = viewstate.split('=')[-1][1:][:-1]
 eventvali = eventvali.split('=')[-1][1:][:-1]
 viewstatgen = viewstatgen.split('=')[-1][1:][:-1]
-
-print viewstate, viewstatgen, eventvali
 
 data = {
         '__VIEWSTATE' : viewstate,
